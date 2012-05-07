@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jayway.accountslab.authenication.AccountAuthenticator;
+
 /**
  * @author Jenny Nilsson, Jayway
  * 
@@ -60,7 +62,8 @@ public class CreateAccountActivity extends AccountAuthenticatorActivity {
 			return;
 		}
 
-		String accountType = this.getIntent().getStringExtra(PARAM_AUTHTOKEN_TYPE);
+		String accountType = this.getIntent().getStringExtra(AccountAuthenticator.AUTH_TOKEN_TYPE_PARAM);
+		Log.d("", "We have a type? " + accountType);
 		if (accountType == null) {
 			accountType = getString(R.string.auth_token);
 		}

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.jayway.accountslab.CreateAccountActivity;
-import com.jayway.accountslab.R;
 
 /**
  *
@@ -18,6 +17,8 @@ import com.jayway.accountslab.R;
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
 	private final Context context;
+
+	public static final String AUTH_TOKEN_TYPE_PARAM = "auto_token_param";
 
 	/**
 	 * @param context
@@ -32,7 +33,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 		final Bundle result = new Bundle();
 
 		Intent intent = new Intent(context, CreateAccountActivity.class);
-		intent.putExtra(context.getApplicationContext().getString(R.string.auth_token), authTokenType);
+		intent.putExtra(AUTH_TOKEN_TYPE_PARAM, authTokenType);
 		intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
 
 		result.putParcelable(AccountManager.KEY_INTENT, intent);
