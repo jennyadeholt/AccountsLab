@@ -1,6 +1,6 @@
 package com.jayway.accountslab;
 
-import android.accounts.AccountAuthenticatorActivity;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 /**
  * @author Jenny Nilsson, Jayway
  */
-public class CreateAccountActivity extends AccountAuthenticatorActivity {
+public class CreateAccountActivity extends Activity {
 
     /** */
     public static final String PARAM_AUTHTOKEN_TYPE = "auth.token";
