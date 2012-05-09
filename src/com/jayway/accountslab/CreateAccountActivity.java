@@ -1,28 +1,23 @@
 package com.jayway.accountslab;
 
-import android.app.Activity;
+import android.accounts.AccountAuthenticatorActivity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.jayway.accountslab.authenication.AccountAuthenticator;
-
 
 /**
  * @author Jenny Nilsson, Jayway
  */
-public class CreateAccountActivity extends Activity {
+public class CreateAccountActivity extends AccountAuthenticatorActivity {
 
     private static final int PROGRESS_DIALOG = 0;
 
     @Override
     protected void onCreate(Bundle icicle) {
-        // TODO Auto-generated method stub
         super.onCreate(icicle);
         this.setContentView(R.layout.login_view);
     }
@@ -44,23 +39,26 @@ public class CreateAccountActivity extends Activity {
 
         if (username.length() < 3) {
             hasErrors = true;
-            tvUsername.setBackgroundColor(Color.GRAY);
+
         }
         if (password.length() < 3) {
             hasErrors = true;
-            tvPassword.setBackgroundColor(Color.GRAY);
+
         }
 
         if (hasErrors) {
+            dismissDialog(PROGRESS_DIALOG);
             return;
         }
 
         String accountType = this.getIntent().getStringExtra(AccountAuthenticator.AUTH_TOKEN_TYPE_PARAM);
-        if (TextUtils.isEmpty(accountType)){
+        if (accountType == null) {
             accountType = getString(R.string.auth_token);
         }
 
+
         new LoginUserTask().execute(username, password, accountType);
+
     }
 
     @Override
@@ -96,9 +94,8 @@ public class CreateAccountActivity extends Activity {
             super.onPostExecute(result);
 
 
-
             dismissDialog(PROGRESS_DIALOG);
-
+            finish();
 
         }
     }

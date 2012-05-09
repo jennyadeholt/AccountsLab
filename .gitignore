@@ -8,5 +8,6 @@ cert/*.apk
 gen
 classes
 bin
+classes
 local.properties
 target
