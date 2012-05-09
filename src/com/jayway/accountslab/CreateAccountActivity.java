@@ -6,18 +6,17 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.jayway.accountslab.authenication.AccountAuthenticator;
 
 
 /**
  * @author Jenny Nilsson, Jayway
  */
 public class CreateAccountActivity extends Activity {
-
-    /** */
-    public static final String PARAM_AUTHTOKEN_TYPE = "auth.token";
 
     private static final int PROGRESS_DIALOG = 0;
 
@@ -56,7 +55,10 @@ public class CreateAccountActivity extends Activity {
             return;
         }
 
-        String accountType = getString(R.string.auth_token);
+        String accountType = this.getIntent().getStringExtra(AccountAuthenticator.AUTH_TOKEN_TYPE_PARAM);
+        if (TextUtils.isEmpty(accountType)){
+            accountType = getString(R.string.auth_token);
+        }
 
         new LoginUserTask().execute(username, password, accountType);
     }
@@ -93,17 +95,11 @@ public class CreateAccountActivity extends Activity {
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
 
-            if (result) {
 
 
-                dismissDialog(PROGRESS_DIALOG);
+            dismissDialog(PROGRESS_DIALOG);
 
-            } else {
 
-                dismissDialog(PROGRESS_DIALOG);
-                Toast.makeText(CreateAccountActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
-                findViewById(R.id.okbutton).setEnabled(true);
-            }
         }
     }
 }
